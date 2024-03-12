@@ -1,0 +1,24 @@
+{
+  "extends": "../src/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../dist/out-tsc-e2e",
+    "module": "commonjs",
+    "target": "es5",
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    "types": [
+      "jasmine",
+      "node"
+    ],
+    "typeRoots": [
+      "../node_modules/@types"
+    ]
+  },
+  "angularCompilerOptions": {
+    "enableIvy": false,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}
