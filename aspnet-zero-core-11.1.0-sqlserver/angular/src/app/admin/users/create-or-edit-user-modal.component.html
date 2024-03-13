@@ -88,14 +88,14 @@
                                 }} *</label>
                             <div style="border: 1px solid #ccc; border-radius: 4px">
                                 <div class="p-4" style="border-bottom: 1px solid #ccc;">
-                                    <button type="button" class="btn font-weight-bold me-2"
+                                    <button type="button" class="btn font-weight-bold me-2 rounded-3"
                                             (click)="openFileExplorer(fileInputAdd)" style="background-color: #3f51b5;">
                                         <i class="fa fa-upload" aria-hidden="true"></i>
                                         <span class="text-white">{{ 'Thêm' | localize }}</span>
                                     </button>
 
                                     <!-- Huỷ button -->
-                                    <button type="button" class="btn btn-light-primary font-weight-bold"
+                                    <button type="button" class="btn btn-light-primary font-weight-bold rounded-3"
                                             (click)="desFunction()" style="background-color: #3f51b5">
                                         <i class="fa fa-times" aria-hidden="true" style="color: white;"></i>
                                         <span class="text-white">{{ 'Huỷ' | localize }}</span>
@@ -103,15 +103,31 @@
                                 </div>
                                 <!-- Upload file  -->
                                 <input type="file" #fileInputAdd style="display:none" (change)="onFileSelected($event)"
-                                       accept=".doc, .docx, .pdf" />
-                                <!--Hiển thị ảnh loại file-->
-                                <img src="../pic/pdf.png" alt="pic">
-                                <!-- Hiển thị tên file đã chọn -->
-                                <input id="selectedFileNameDisplay" style="background-color: #fff" type="text" name="selectedFileNameDisplay"
-                                       class="form-control" readonly [(ngModel)]="selectedFileName" maxlength="30" class="border-0 p-4" />
-                                <!--Hiển thị kích thước file-->
-                                <input id="selectedFileSizeDisplay" style="background-color: #fff" type="text" name="selectedFileSizeDisplay"
-                                       class="form-control" readonly [(ngModel)]="fileSize" maxlength="10" class="border-0 p-4" />
+                                       accept=".doc, .docx, .pdf" multiple />
+                                <!--Hiển thị ảnh loại file
+    <img src="../pic/pdf.png" alt="pic">
+    <!-- Hiển thị tên file đã chọn
+    <input id="selectedFileNameDisplay" style="background-color: #fff" type="text" name="selectedFileNameDisplay"
+           class="form-control" readonly [(ngModel)]="selectedFileName" maxlength="30" class="border-0 p-4" />
+    <!--Hiển thị kích thước file
+    <input id="selectedFileSizeDisplay" style="background-color: #fff" type="text" name="selectedFileSizeDisplay"
+           class="form-control" readonly [(ngModel)]="fileSize" maxlength="10" class="border-0 p-4" />-->
+                                <div *ngIf="selectedFiles.length > 0">
+                                    <ul>
+                                        <li *ngFor="let file of selectedFiles; let index = index" class="file-item">
+                                            <img [src]="getFileTypeIcon(file.name)" class="file-icon" />
+                                            <div class="file-name-container">
+                                                <span class="file-name">{{ file.name }}</span>
+                                            </div>
+                                            <span class="file-size">{{ formatFileSize(file.size) }}</span>
+                                            <button type="button" class="remove-button" class="btn btn-light-primary font-weight-bold rounded-3"
+                                                    (click)="removeFile(index)" style="background-color: #3f51b5; padding: 13px 15px; font-size: 12px;">
+                                                <i class="fa fa-times" aria-hidden="true" style="color: white;"></i>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+
                             </div>
                         </div>
                         <!-- Input file
@@ -133,11 +149,11 @@
                     </tabset>
                 </div>
                 <div class="modal-footer">
-                    <button [disabled]="saving" type="button" class="btn btn-light-primary font-weight-bold"
+                    <button [disabled]="saving" type="button" class="btn btn-light-primary font-weight-bold rounded-3"
                         (click)="close()">
                         {{ 'Huỷ' | localize }}
                     </button>
-                    <button type="submit" class="btn btn-primary font-weight-bold" [disabled]="!userForm.form.valid"
+                    <button type="submit" class="btn btn-primary font-weight-bold rounded-3" [disabled]="!userForm.form.valid"
                         [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
                         <i class="fa fa-save"></i>
                         <span>{{ 'Lưu' | localize }}</span>

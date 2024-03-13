@@ -67,7 +67,8 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
 
     documentType: string;
     fileSize: string = '';
-    imageUrl: string = 'D:\CNPM_232\CNPM_232\aspnet-zero-core-11.1.0-sqlserver\angular\pic\pdf.png'
+
+    selectedFiles: File[] = [];
 
     constructor(
         injector: Injector,
@@ -223,6 +224,7 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
 
     desFunction() {
         // Implement the logic for the "Huỷ" button click
+        this.selectedFiles = [];
     }
 
     // Example in your component.ts file
@@ -251,7 +253,7 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
     }
 
     onFileSelected(event: any): void {
-        // Your file selection logic here
+        /*// Your file selection logic here
         const files = event.target.files;
         if (files.length > 0) {
 
@@ -279,6 +281,45 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
         } else {
             this.selectedFileName = '';
             console.log('2');
+        }*/
+
+        //this.selectedFiles = [];
+
+        const files: FileList = event.target.files;
+
+        // Convert FileList to array
+        for (let i = 0; i < files.length; i++) {
+            this.selectedFiles.push(files[i]);
+        }
+
+    }
+
+    // Method to format file size from bytes to KB or MB
+    formatFileSize(bytes: number): string {
+        if (bytes == 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    //remove file number i
+    removeFile(index: number) {
+        this.selectedFiles.splice(index, 1);
+    }
+
+    getFileExtension(filename: string): string {
+        return filename.split('.').pop(); // Trích xuất phần mở rộng từ tên file
+    }
+
+    getFileTypeIcon(filename: string): string {
+        const extension = this.getFileExtension(filename); // Lấy phần mở rộng của tên file
+        if (extension === 'pdf') {
+            return 'assets/icons/pdf.png';
+        } else if (extension === 'docx') {
+            return 'assets/icons/docx.png';
+        } else {
+            return 'assets/icons/doc.png';
         }
     }
 }

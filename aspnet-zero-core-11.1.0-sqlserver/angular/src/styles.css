@@ -162,3 +162,38 @@ bs-days-calendar-view {
     display: inline-block;
     border-radius: 4px 0 0 4px;
 }
+
+.remove-button {
+    float: right; /* Đặt nút X sang phải*/
+    margin-right: 10px; /* Đặt khoảng cách mong muốn giữa nút X và nội dung khác*/
+}
+
+li {
+    display: inline-block; /* Hiển thị các phần tử li cùng một hàng */
+    vertical-align: top; /* Canh chỉnh dọc để các phần tử nằm cùng một hàng */
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+}
+
+.file-name-container {
+    /*flex: 1;*/
+    width: 300px; /* Độ rộng của container chứa tên file */
+    overflow: scroll; /* Ẩn phần dư thừa của tên file */
+    white-space: nowrap; /* Ngăn tên file xuống dòng */
+    text-overflow: ellipsis; /* Hiển thị dấu chấm 3 khi tên file quá dài */
+}
+
+.file-size {
+    width: 70px;
+    margin-left: 80px; /* Đẩy kích thước tệp sang bên phải*/
+    margin-right: 100px; /* Tạo khoảng cách giữa kích thước tệp và nút X */
+}
+
+.file-icon {
+    width: 80px; /* Đặt kích thước của logo */
+    height: 80px; /* Đặt kích thước của logo */
+    margin-right: 40px; /* Tạo khoảng cách giữa logo và tên file */
+}
