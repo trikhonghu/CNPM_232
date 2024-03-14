@@ -235,13 +235,18 @@ li {
     position: relative;
 }
 
-    .select-with-arrow .select-wrapper {
-        position: relative;
-    }
+.select-with-arrow .select-wrapper {
+    position: relative;
+}
 
-    .select-with-arrow .fa-chevron-down {
-        position: absolute;
-        top: 50%;
-        right: 10px; /* Khoảng cách từ mũi tên đến cạnh phải */
-        transform: translateY(-50%);
-    }
+.select-with-arrow .fa-chevron-down {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Khoảng cách từ mũi tên đến cạnh phải */
+    transform: translateY(-50%);
+}
+
+.button-left {
+    position: relative;
+    left: -10px; /* Điều chỉnh giá trị này để lệch nút sang trái hơn */
+}

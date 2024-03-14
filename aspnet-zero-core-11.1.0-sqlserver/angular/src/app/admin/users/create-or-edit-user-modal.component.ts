@@ -23,6 +23,7 @@ import { finalize } from 'rxjs/operators';
 import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { NgModel } from '@angular/forms';
 
+
 @Component({
     selector: 'createOrEditUserModal',
     templateUrl: './create-or-edit-user-modal.component.html',
@@ -37,6 +38,7 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
     @ViewChild('createOrEditModal', { static: true }) createOrEditModal: ModalDirective;
 
     @ViewChild('fileInput', { static: true }) fileInput: ElementRef;
+    @ViewChild('editHistoryModal') editHistoryModal: ModalDirective;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
@@ -67,6 +69,8 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
 
     documentType: string;
     fileSize: string = '';
+
+    showEditHistory: boolean = false;
 
     selectedFiles: File[] = [];
 
