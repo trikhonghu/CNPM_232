@@ -197,3 +197,12 @@ li {
     height: 80px; /* Đặt kích thước của logo */
     margin-right: 40px; /* Tạo khoảng cách giữa logo và tên file */
 }
+
+.btn-history {
+    z-index: 1; /* Đảm bảo nút được hiển thị trên phần nội dung */
+    float: right; /* Đặt nút ở bên phải */
+    margin-bottom: 20px; /* Dịch chuyển nút lên phía trên */
+    display: block; /* Hiển thị nút làm block */
+    max-width: 250px; /* Đảm bảo nút không quá rộng */
+    font-size: 12px;
+}
