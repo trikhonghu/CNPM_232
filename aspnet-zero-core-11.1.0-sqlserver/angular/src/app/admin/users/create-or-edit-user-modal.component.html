@@ -29,132 +29,144 @@
 
                 <div class="modal-body">
                     <!--<tabset>-->
-                        <!--<div class="row">-->
-                            <div class="mb-5">
-                                <label class="form-labe fw-bold" for="Name">{{ 'Số hiệu văn bản' | localize }} *</label>
-                                <input id="Name" #nameInput="ngModel" class="form-control" type="text" name="Name"
-                                       [(ngModel)]="user.name" required maxlength="64" />
-                                <validation-messages [formCtrl]="nameInput"></validation-messages>
-                            </div>
+                    <!--<div class="row">-->
+                    <div class="mb-5">
+                        <label class="form-labe fw-bold" for="Name">{{ 'Số hiệu văn bản' | localize }} *</label>
+                        <input id="Name" #nameInput="ngModel" class="form-control" type="text" name="Name"
+                               [(ngModel)]="user.name" required maxlength="64" />
+                        <validation-messages [formCtrl]="nameInput"></validation-messages>
+                    </div>
 
-                            <div class="mb-5">
-                                <label class="form-label fw-bold" for="Surname">{{ 'Tiêu đề' | localize }} *</label>
-                                <input id="Surname" #surnameInput="ngModel" type="text" name="Surname"
-                                       class="form-control" [(ngModel)]="user.surname" required maxlength="64" />
-                                <validation-messages [formCtrl]="surnameInput"></validation-messages>
-                            </div>
-                            <!--</div>-->
-                        <!--</div>-->
-                        <div class="mb-5">
-                            <label class="form-label fw-bold" for="EmailAddress">{{ 'Trích yếu' | localize }} *</label>
-                            <input id="EmailAddress" #emailAddressInput="ngModel" type="email" name="EmailAddress"
-                                   class="form-control" [(ngModel)]="user.emailAddress" required maxlength="256" email />
-                            <validation-messages [formCtrl]="emailAddressInput"></validation-messages>
-                        </div>
+                    <div class="mb-5">
+                        <label class="form-label fw-bold" for="Surname">{{ 'Tiêu đề' | localize }} *</label>
+                        <input id="Surname" #surnameInput="ngModel" type="text" name="Surname"
+                               class="form-control" [(ngModel)]="user.surname" required maxlength="64" />
+                        <validation-messages [formCtrl]="surnameInput"></validation-messages>
+                    </div>
+                    <!--</div>-->
+                    <!--</div>-->
+                    <div class="mb-5">
+                        <label class="form-label fw-bold" for="EmailAddress">{{ 'Trích yếu' | localize }} *</label>
+                        <input id="EmailAddress" #emailAddressInput="ngModel" type="email" name="EmailAddress"
+                               class="form-control" [(ngModel)]="user.emailAddress" required maxlength="256" email />
+                        <validation-messages [formCtrl]="emailAddressInput"></validation-messages>
+                    </div>
 
-                        <div class="mb-5">
-                            <label class="form-label fw-bold" for="PhoneNumber">{{ 'Loại văn bản' | localize }} *</label>
-                            <select id="documentType" name="documentType" class="form-control"
-                                    [(ngModel)]="documentType">
+                    <div class="mb-5 select-with-arrow">
+                        <label class="form-label fw-bold" for="documentType">{{ 'Loại văn bản' | localize }} *</label>
+                        <div class="select-wrapper">
+                            <select id="documentType" name="documentType" class="form-control" [(ngModel)]="documentType">
                                 <option value="a">Văn bản quy phạm pháp luật</option>
                                 <option value="b">Văn bản áp dụng pháp luật</option>
                                 <option value="c">Văn bản hành chính</option>
                             </select>
+                            <i class="fas fa-chevron-down"></i>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-5">
-                                    <label class="form-label fw-bold" for="startDate">{{ 'Ngày hiệu lực' | localize }} *</label>
-                                    <div class="input-group">
-                                        <input id="startDate" type="text" class="form-control" bsDatepicker
-                                               [(ngModel)]="startDate"
-                                               [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY' }"
-                                               name="startDate" required />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-5">
-                                    <label class="form-label fw-bold" for="endDate">
-                                        {{ 'Ngày hết hiệu lực' | localize }}
-                                        *
-                                    </label>
-                                    <div class="input-group">
-                                        <input id="endDate" type="text" class="form-control" bsDatepicker
-                                               [(ngModel)]="endDate"
-                                               [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY' }"
-                                               name="endDate" required />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-5">
+                                <label class="form-label fw-bold" for="startDate">{{ 'Ngày hiệu lực' | localize }} *</label>
+                                <div class="input-group">
+                                    <input id="startDate" type="text" class="form-control" bsDatepicker
+                                           [(ngModel)]="startDate"
+                                           [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY' }"
+                                           name="startDate" required />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!--<div class="modal-body">-->
-                        <!-- <span class="border border-1"></span> -->
-                        <!-- Thêm button -->
-                        <div>
-                            <label class="form-label" for="selectedFileName">{{'Toàn văn (doc, docx, pdf)' | localize}} *</label>
-                            <div style="border: 1px solid #ccc; border-radius: 4px">
-                                <div class="p-4" style="border-bottom: 1px solid #ccc;">
-                                    <button type="button" class="btn font-weight-bold me-2 rounded-3"
-                                            (click)="openFileExplorer(fileInputAdd)" style="background-color: #3f51b5;">
-                                        <i class="fa fa-upload" aria-hidden="true"></i>
-                                        <span class="text-white">{{ 'Thêm' | localize }}</span>
-                                    </button>
-
-                                    <!-- Huỷ button -->
-                                    <button type="button" class="btn btn-light-primary font-weight-bold rounded-3"
-                                            (click)="desFunction()" style="background-color: #3f51b5">
-                                        <i class="fa fa-times" aria-hidden="true" style="color: white;"></i>
-                                        <span class="text-white">{{ 'Huỷ' | localize }}</span>
-                                    </button>
+                        <div class="col-md-6">
+                            <div class="mb-5">
+                                <label class="form-label fw-bold" for="endDate">{{ 'Ngày hết hiệu lực' | localize }} *</label>
+                                <div class="input-group">
+                                    <input id="endDate" type="text" class="form-control" bsDatepicker
+                                           [(ngModel)]="endDate"
+                                           [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY' }"
+                                           name="endDate" required />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </div>
                                 </div>
-                                <!-- Upload file  -->
-                                <input type="file" #fileInputAdd style="display:none" (change)="onFileSelected($event)"
-                                       accept=".doc, .docx, .pdf" multiple />
-                                <!--Hiển thị ảnh loại file
-                <img src="../pic/pdf.png" alt="pic">
-                <!-- Hiển thị tên file đã chọn
-                <input id="selectedFileNameDisplay" style="background-color: #fff" type="text" name="selectedFileNameDisplay"
-                       class="form-control" readonly [(ngModel)]="selectedFileName" maxlength="30" class="border-0 p-4" />
-                <!--Hiển thị kích thước file
-                <input id="selectedFileSizeDisplay" style="background-color: #fff" type="text" name="selectedFileSizeDisplay"
-                       class="form-control" readonly [(ngModel)]="fileSize" maxlength="10" class="border-0 p-4" />-->
-                                <div *ngIf="selectedFiles.length > 0">
-                                    <ul>
-                                        <li *ngFor="let file of selectedFiles; let index = index" class="file-item">
-                                            <img [src]="getFileTypeIcon(file.name)" class="file-icon" />
-                                            <div class="file-name-container">
-                                                <span class="file-name">{{ file.name }}</span>
-                                            </div>
-                                            <span class="file-size">{{ formatFileSize(file.size) }}</span>
-                                            <button type="button" class="remove-button" class="btn btn-light-primary font-weight-bold rounded-3"
-                                                    (click)="removeFile(index)" style="background-color: #3f51b5; padding: 13px 15px; font-size: 12px;">
-                                                <i class="fa fa-times" aria-hidden="true" style="color: white;"></i>
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </div>
-
                             </div>
                         </div>
-                        <!-- Input file
-        <input type="file"
-               #fileInput
-               style="display: none;"
-               (change)="onFileSelected($event)"
-               accept=".doc, .docx, .pdf" />-->
-                        <!--</div>-->
-                        <!--<div class="mb-5 custom-height">
-            <label class="form-label" for="selectedFileName">{{ 'Toàn văn (doc, docx, pdf)' | localize }} *</label>
-            <input id="selectedFileName"
-                   type="text"
-                   name="selectedFileName"
-                   class="form-control"
-                   [(ngModel)]="selectedFileName"
-                   maxlength="128" />
-        </div>-->
+                    </div>
+
+
+
+                    <!--<div class="modal-body">-->
+                    <!-- <span class="border border-1"></span> -->
+                    <!-- Thêm button -->
+                    <div>
+                        <label class="form-label" for="selectedFileName">{{'Toàn văn (doc, docx, pdf)' | localize}} *</label>
+                        <div style="border: 1px solid #ccc; border-radius: 4px">
+                            <div class="p-4" style="border-bottom: 1px solid #ccc;">
+                                <button type="button" class="btn font-weight-bold me-2 rounded-3"
+                                        (click)="openFileExplorer(fileInputAdd)" style="background-color: #3f51b5;">
+                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                    <span class="text-white">{{ 'Thêm' | localize }}</span>
+                                </button>
+
+                                <!-- Huỷ button -->
+                                <button type="button" class="btn btn-light-primary font-weight-bold rounded-3"
+                                        (click)="desFunction()" style="background-color: #3f51b5">
+                                    <i class="fa fa-times" aria-hidden="true" style="color: white;"></i>
+                                    <span class="text-white">{{ 'Huỷ' | localize }}</span>
+                                </button>
+                            </div>
+                            <!-- Upload file  -->
+                            <input type="file" #fileInputAdd style="display:none" (change)="onFileSelected($event)"
+                                   accept=".doc, .docx, .pdf" multiple />
+                            <!--Hiển thị ảnh loại file
+            <img src="../pic/pdf.png" alt="pic">
+            <!-- Hiển thị tên file đã chọn
+            <input id="selectedFileNameDisplay" style="background-color: #fff" type="text" name="selectedFileNameDisplay"
+                   class="form-control" readonly [(ngModel)]="selectedFileName" maxlength="30" class="border-0 p-4" />
+            <!--Hiển thị kích thước file
+            <input id="selectedFileSizeDisplay" style="background-color: #fff" type="text" name="selectedFileSizeDisplay"
+                   class="form-control" readonly [(ngModel)]="fileSize" maxlength="10" class="border-0 p-4" />-->
+                            <div *ngIf="selectedFiles.length > 0">
+                                <ul>
+                                    <li *ngFor="let file of selectedFiles; let index = index" class="file-item">
+                                        <img [src]="getFileTypeIcon(file.name)" class="file-icon" />
+                                        <div class="file-name-container">
+                                            <span class="file-name">{{ file.name }}</span>
+                                        </div>
+                                        <span class="file-size">{{ formatFileSize(file.size) }}</span>
+                                        <button type="button" class="remove-button" class="btn btn-light-primary font-weight-bold rounded-3"
+                                                (click)="removeFile(index)" style="background-color: #3f51b5; padding: 13px 15px; font-size: 12px;">
+                                            <i class="fa fa-times" aria-hidden="true" style="color: white;"></i>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Input file
+    <input type="file"
+           #fileInput
+           style="display: none;"
+           (change)="onFileSelected($event)"
+           accept=".doc, .docx, .pdf" />-->
+                    <!--</div>-->
+                    <!--<div class="mb-5 custom-height">
+        <label class="form-label" for="selectedFileName">{{ 'Toàn văn (doc, docx, pdf)' | localize }} *</label>
+        <input id="selectedFileName"
+               type="text"
+               name="selectedFileName"
+               class="form-control"
+               [(ngModel)]="selectedFileName"
+               maxlength="128" />
+    </div>-->
                     <!--</tabset>-->
                 </div>
                 <div class="modal-footer">

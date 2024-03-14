@@ -253,37 +253,6 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
     }
 
     onFileSelected(event: any): void {
-        /*// Your file selection logic here
-        const files = event.target.files;
-        if (files.length > 0) {
-
-            // Lấy kích thước của tệp được chọn
-            const fileSizeInBytes = files[0].size;
-            let fileSizeFormatted: string;
-
-            // Kiểm tra nếu kích thước của tệp lớn hơn 1 MB
-            if (fileSizeInBytes > 1024 * 1024) {
-                // Nếu kích thước lớn hơn 1 MB, chuyển đổi sang Megabyte và làm tròn đến 2 chữ số thập phân
-                const fileSizeInMB = (fileSizeInBytes / (1024 * 1024)).toFixed(2);
-                fileSizeFormatted = parseFloat(fileSizeInMB) + ' MB';
-            } else {
-                // Nếu kích thước nhỏ hơn hoặc bằng 1 MB, chuyển đổi sang Kilobyte và làm tròn đến 2 chữ số thập phân
-                const fileSizeInKB = (fileSizeInBytes / 1024).toFixed(2);
-                fileSizeFormatted = parseFloat(fileSizeInKB) + ' KB';
-            }
-
-            // Gán kích thước của tệp vào biến
-            this.fileSize = fileSizeFormatted; // Chuyển đổi kết quả về kiểu số
-            // Lấy tên của tệp
-            this.selectedFileName = files[0].name;
-            console.log('File size:', this.fileSize);
-            console.log('1');
-        } else {
-            this.selectedFileName = '';
-            console.log('2');
-        }*/
-
-        //this.selectedFiles = [];
 
         const files: FileList = event.target.files;
 
