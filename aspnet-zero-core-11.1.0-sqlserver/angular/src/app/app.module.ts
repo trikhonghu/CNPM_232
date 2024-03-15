@@ -182,9 +182,6 @@ import { SubheaderModule } from './shared/common/sub-header/subheader.module';
         NgxSpinnerModule,
         AppBsModalModule,
         SubheaderModule,
-
-        BsDatepickerModule.forRoot(),
-        FormsModule,
     ],
     providers: [
         ImpersonationService,

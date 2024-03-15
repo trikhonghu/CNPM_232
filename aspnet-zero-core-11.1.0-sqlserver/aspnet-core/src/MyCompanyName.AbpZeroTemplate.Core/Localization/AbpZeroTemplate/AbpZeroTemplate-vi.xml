@@ -757,7 +757,7 @@
     <text name="UiCustomization_Desktop">Máy tính để bàn</text>
     <text name="TwoFactorLoginIsNotSupported">Bảo mật 2 lớp không được hỗ trợ!</text>
     <text name="LinkToCurrentPage">Liên kết đến trang hiện tại</text>
-    <text name="ThisFieldIsRequired">Trường này là bắt buộc.</text>
+    <text name="ThisFieldIsRequired">Điền đầy đủ thông tin</text>
     <text name="PleaseEnterAtLeastNCharacter">Vui lòng nhập ít nhất {0} ký tự.</text>
     <text name="PleaseEnterNoMoreThanNCharacter">Vui lòng nhập không quá {0} ký tự.</text>
     <text name="SelectTwoFactorProvider">Chọn nhà cung cấp xác thực hai yếu tố</text>

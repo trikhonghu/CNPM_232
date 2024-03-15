@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:50887/",
-      "sslPort": 44337
+      "applicationUrl": "https://localhost:44303/",
+      "sslPort": 44303
     }
   },
   "profiles": {
@@ -18,10 +18,10 @@
     "MyCompanyName.AbpZeroTemplate.Web.FrontEnd": {
       "commandName": "Project",
       "launchBrowser": true,
+      "applicationUrl": "https://localhost:44303",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "applicationUrl": "https://localhost:44303"
+      }
     },
     "Docker": {
       "commandName": "Docker",

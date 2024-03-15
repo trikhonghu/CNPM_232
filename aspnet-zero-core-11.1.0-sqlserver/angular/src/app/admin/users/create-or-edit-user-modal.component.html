@@ -1,0 +1,181 @@
+<div appBsModal #createOrEditModal="bs-modal" (onShown)="onShown()" class="modal fade create-or-edit-user-modal"
+    tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true"
+    [config]="{ backdrop: 'static', keyboard: !saving }">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #userForm="ngForm" novalidate (ngSubmit)="save()">
+                <div class="modal-header">
+                    <h4 class="modal-title fw-bolder">
+                        <span *ngIf="user.id"> {{ 'Sửa văn bản pháp lý' | localize }}</span>
+                        <!-- <span *ngIf="!user.id">{{ 'CreateNewUser' | localize }}</span> -->
+                    </h4>
+                    <button type="button" class="btn-close" (click)="close()" [attr.aria-label]="l('Close')"
+                        [disabled]="saving"></button>
+                        <br>
+                </div>
+
+                <div class="modal-body mt-5" *ngIf="!showEditHistory">
+                    <!-- <tabset> -->
+                        <div *ngIf="!showEditHistory">
+                        <button type="button" class="btn btn-primary font-weight-bold rounded-3 btn-history position-absolute"
+                            (click)="showEditHistory = !showEditHistory" style="top: -10px; right: 20px;">
+                            <i class="fa fa-history" aria-hidden="true"></i>
+                            <span class="text-white">{{ 'Xem lịch sử chỉnh sửa' | localize }}</span>
+                        </button>
+                    </div>
+                        <div class="row">
+                            <div class="mb-5">
+                                <label class="form-labe fw-bold" for="Name">{{ 'Số hiệu văn bản' | localize }} *</label>
+                                <input id="Name" #nameInput="ngModel" class="form-control" type="text" name="Name"
+                                    [(ngModel)]="user.name" required maxlength="64" />
+                                <validation-messages [formCtrl]="nameInput"></validation-messages>
+                            </div>
+                        </div>
+                        <div class="mb-5">
+                            <label class="form-label fw-bold" for="Surname">{{ 'Tiêu đề' | localize }} *</label>
+                            <input id="Surname" #surnameInput="ngModel" type="text" name="Surname" class="form-control"
+                                [(ngModel)]="user.surname" required maxlength="64" />
+                            <validation-messages [formCtrl]="surnameInput"></validation-messages>
+                        </div>
+                        <div class="mb-5">
+                            <label class="form-label fw-bold" for="EmailAddress">{{ 'Trích yếu' | localize }} *</label>
+                            <input id="EmailAddress" #emailAddressInput="ngModel" type="email" name="EmailAddress"
+                                class="form-control" [(ngModel)]="user.emailAddress" required maxlength="256" email />
+                            <validation-messages [formCtrl]="emailAddressInput"></validation-messages>
+                        </div>
+                        <div class="row">
+                            <div class="mb-5 select-with-arrow">
+                                <label class="form-label fw-bold" for="documentType">{{ 'Loại văn bản' | localize }}
+                                    *</label>
+                                <div class="select-wrapper position-relative">
+                                    <select id="documentType" name="documentType" class="form-control"
+                                        [(ngModel)]="documentType">
+                                        <option value="a">Văn bản quy phạm pháp luật</option>
+                                        <option value="b">Văn bản áp dụng pháp luật</option>
+                                        <option value="c">Văn bản hành chính</option>
+                                    </select>
+                                    <i class="fas fa-chevron-down position-absolute"
+                                        style="top: 50%; right: 10px;  transform: translateY(-50%);  pointer-events: none;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-5">
+                                    <label class="form-label fw-bold" for="startDate">{{ 'Ngày hiệu lực' | localize }}
+                                        *</label>
+                                    <div class="input-group">
+                                        <input id="startDate" type="text" class="form-control" bsDatepicker
+                                            [(ngModel)]="startDate"
+                                            [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY' }"
+                                            name="startDate" required />
+                                        <div class="input-group-append position-absolute"
+                                            style="right: 0px;top: 0px;bottom: 0; margin: auto; z-index: 3">
+                                            <span class="input-group-text p-0"
+                                                style="background-color: transparent; border: none;">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-5">
+                                    <label class="form-label fw-bold" for="endDate">{{ 'Ngày hết hiệu lực' | localize }}
+                                        *</label>
+                                    <div class="input-group">
+                                        <input id="endDate" type="text" class="form-control" bsDatepicker
+                                            [(ngModel)]="endDate"
+                                            [bsConfig]="{ containerClass: 'theme-dark-blue', dateInputFormat: 'DD/MM/YYYY' }"
+                                            name="endDate" required />
+                                        <div class="input-group-append position-absolute"
+                                            style="right: 0px;top: 0px;bottom: 0; margin: auto; z-index: 3">
+                                            <span class="input-group-text p-0"
+                                                style="background-color: transparent; border: none;">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="form-label" for="selectedFileName">{{'Toàn văn (doc, docx, pdf)' | localize}}
+                                *</label>
+                            <div style="border: 1px solid #ccc; border-radius: 4px">
+                                <div class="p-4" style="border-bottom: 1px solid #ccc;">
+                                    <button type="button" class="btn font-weight-bold me-2 rounded-3"
+                                        (click)="openFileExplorer(fileInputAdd)" style="background-color: #3f51b5;">
+                                        <i class="fa fa-upload" aria-hidden="true"></i>
+                                        <span class="text-white">{{ 'Thêm' | localize }}</span>
+                                    </button>
+
+                                    <!-- Huỷ button -->
+                                    <button type="button" class="btn btn-light-primary font-weight-bold rounded-3"
+                                        (click)="desFunction()" style="background-color: #3f51b5">
+                                        <i class="fa fa-times" aria-hidden="true" style="color: white;"></i>
+                                        <span class="text-white">{{ 'Huỷ' | localize }}</span>
+                                    </button>
+                                </div>
+                                <!-- Upload file  -->
+                                <input type="file" #fileInputAdd style="display:none" (change)="onFileSelected($event)"
+                                    accept=".doc, .docx, .pdf" multiple />
+                                <div *ngIf="selectedFiles.length > 0">
+                                    <ul>
+                                        <li *ngFor="let file of selectedFiles; let index = index" class="file-item p-2">
+                                            <img [src]="getFileTypeIcon(file.name)" class="file-icon"
+                                                style="height: 50px; width: 50px;" />
+                                            <div class="file-name-container">
+                                                <span class="file-name">{{ file.name }}</span>
+                                            </div>
+                                            <span class="file-size">{{ formatFileSize(file.size) }}</span>
+                                            <button type="button" class="remove-button"
+                                                class="btn btn-light-primary font-weight-bold rounded-3"
+                                                (click)="removeFile(index)"
+                                                style="background-color: #3f51b5; padding: 13px 15px; font-size: 12px;">
+                                                <i class="fa fa-times" aria-hidden="true" style="color: white;"></i>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- </tabset> -->
+                </div>
+                <div class="modal-body" *ngIf="showEditHistory">
+                    <button type="button" class="btn btn-primary font-weight-bold rounded-3 button-left"
+                        (click)="showEditHistory = !showEditHistory">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    </button>
+                    <div class="mt-10">
+                        <table
+                            style="border-spacing: 10px; border-collapse: collapse; border: 1px solid black; width: 100%;">
+                            <tr style="border-bottom: 1px solid black;">
+                                <th class="p-4 fs-3">Lịch sử chỉnh sửa</th>
+                            </tr>
+                            <tr>
+                                <td class="p-8">Ngày chỉnh sửa</td>
+                                <td class="p-8">Toàn văn</td>
+                            </tr>
+                            <tr>
+                                <td class="p-8">Ngày chỉnh sửa</td>
+                                <td class="p-8">Toàn văn</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer" *ngIf="!showEditHistory">
+                    <button [disabled]="saving" type="button" class="btn btn-light-primary font-weight-bold rounded-3"
+                        (click)="close()">
+                        {{ 'Huỷ' | localize }}
+                    </button>
+                    <button type="submit" class="btn btn-primary font-weight-bold rounded-3"
+                        [disabled]="!userForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')">
+                        <i class="fa fa-save"></i>
+                        <span>{{ 'Lưu' | localize }}</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
