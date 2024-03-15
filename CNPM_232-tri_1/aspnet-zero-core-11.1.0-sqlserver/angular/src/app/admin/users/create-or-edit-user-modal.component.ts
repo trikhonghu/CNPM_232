@@ -23,6 +23,7 @@ import { finalize } from 'rxjs/operators';
 import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { NgModel } from '@angular/forms';
 
+
 @Component({
     selector: 'createOrEditUserModal',
     templateUrl: './create-or-edit-user-modal.component.html',
@@ -37,6 +38,7 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
     @ViewChild('createOrEditModal', { static: true }) createOrEditModal: ModalDirective;
 
     @ViewChild('fileInput', { static: true }) fileInput: ElementRef;
+    @ViewChild('editHistoryModal') editHistoryModal: ModalDirective;
 
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
@@ -66,6 +68,11 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
     documentViewerSource: string = '';
 
     documentType: string;
+    fileSize: string = '';
+
+    showEditHistory: boolean = false;
+
+    selectedFiles: File[] = [];
 
     constructor(
         injector: Injector,
@@ -221,6 +228,7 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
 
     desFunction() {
         // Implement the logic for the "Huỷ" button click
+        this.selectedFiles = [];
     }
 
     // Example in your component.ts file
@@ -249,14 +257,42 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
     }
 
     onFileSelected(event: any): void {
-        // Your file selection logic here
-        const files = event.target.files;
-        if (files.length > 0) {
-            this.selectedFileName = files[0].name;
-            console.log('1');
+
+        const files: FileList = event.target.files;
+
+        // Convert FileList to array
+        for (let i = 0; i < files.length; i++) {
+            this.selectedFiles.push(files[i]);
+        }
+
+    }
+
+    // Method to format file size from bytes to KB or MB
+    formatFileSize(bytes: number): string {
+        if (bytes == 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    //remove file number i
+    removeFile(index: number) {
+        this.selectedFiles.splice(index, 1);
+    }
+
+    getFileExtension(filename: string): string {
+        return filename.split('.').pop(); // Trích xuất phần mở rộng từ tên file
+    }
+
+    getFileTypeIcon(filename: string): string {
+        const extension = this.getFileExtension(filename); // Lấy phần mở rộng của tên file
+        if (extension === 'pdf') {
+            return 'assets/icons/pdf.png';
+        } else if (extension === 'docx') {
+            return 'assets/icons/docx.png';
         } else {
-            this.selectedFileName = '';
-            console.log('2');
+            return 'assets/icons/doc.png';
         }
     }
 }

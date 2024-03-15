@@ -162,3 +162,91 @@ bs-days-calendar-view {
     display: inline-block;
     border-radius: 4px 0 0 4px;
 }
+
+.remove-button {
+    float: right; /* Đặt nút X sang phải*/
+    margin-right: 10px; /* Đặt khoảng cách mong muốn giữa nút X và nội dung khác*/
+}
+
+li {
+    display: inline-block; /* Hiển thị các phần tử li cùng một hàng */
+    vertical-align: top; /* Canh chỉnh dọc để các phần tử nằm cùng một hàng */
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+}
+
+.file-name-container {
+    /*flex: 1;*/
+    width: 300px; /* Độ rộng của container chứa tên file */
+    overflow: scroll; /* Ẩn phần dư thừa của tên file */
+    white-space: nowrap; /* Ngăn tên file xuống dòng */
+    text-overflow: ellipsis; /* Hiển thị dấu chấm 3 khi tên file quá dài */
+}
+
+.file-size {
+    width: 70px;
+    margin-left: 80px; /* Đẩy kích thước tệp sang bên phải*/
+    margin-right: 100px; /* Tạo khoảng cách giữa kích thước tệp và nút X */
+}
+
+.file-icon {
+    width: 80px; /* Đặt kích thước của logo */
+    height: 80px; /* Đặt kích thước của logo */
+    margin-right: 40px; /* Tạo khoảng cách giữa logo và tên file */
+}
+
+.btn-history {
+    z-index: 1; /* Đảm bảo nút được hiển thị trên phần nội dung */
+    float: right; /* Đặt nút ở bên phải */
+    margin-bottom: 20px; /* Dịch chuyển nút lên phía trên */
+    display: block; /* Hiển thị nút làm block */
+    max-width: 250px; /* Đảm bảo nút không quá rộng */
+    font-size: 12px;
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-group-append {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background-color: transparent;
+    border: none;
+    z-index: 3;
+}
+
+.input-group-append .input-group-text {
+    background-color: transparent;
+    border: none;
+    color: #495057; /* Màu của biểu tượng lịch */
+    cursor: pointer;
+}
+
+.select-with-arrow {
+    position: relative;
+}
+
+.select-with-arrow .select-wrapper {
+    position: relative;
+}
+
+.select-with-arrow .fa-chevron-down {
+    position: absolute;
+    top: 50%;
+    right: 10px; /* Khoảng cách từ mũi tên đến cạnh phải */
+    transform: translateY(-50%);
+}
+
+.button-left {
+    position: relative;
+    left: -10px; /* Điều chỉnh giá trị này để lệch nút sang trái hơn */
+}
