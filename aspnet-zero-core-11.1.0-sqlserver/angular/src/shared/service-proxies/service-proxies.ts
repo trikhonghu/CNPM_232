@@ -2781,6 +2781,74 @@ export class DemoUiComponentsServiceProxy {
 }
 
 @Injectable()
+export class DocumentServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @return Success
+     */
+    getDocuments(filter: string | undefined): Observable<ListResultDtoOfDocumentListDto> {
+        let url_ = this.baseUrl + "/api/services/app/Document/GetDocuments?";
+        if (filter === null)
+            throw new Error("The parameter 'filter' cannot be null.");
+        else if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "text/plain"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetDocuments(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetDocuments(<any>response_);
+                } catch (e) {
+                    return <Observable<ListResultDtoOfDocumentListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<ListResultDtoOfDocumentListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetDocuments(response: HttpResponseBase): Observable<ListResultDtoOfDocumentListDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = ListResultDtoOfDocumentListDto.fromJS(resultData200);
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<ListResultDtoOfDocumentListDto>(<any>null);
+    }
+}
+
+@Injectable()
 export class DynamicEntityPropertyServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -16483,6 +16551,66 @@ export interface IDelegatedImpersonateInput {
     userDelegationId: number;
 }
 
+export class DocumentListDto implements IDocumentListDto {
+    title!: string | undefined;
+    code!: string | undefined;
+    releaseDate!: DateTime;
+    organization!: string | undefined;
+    effectiveDate!: DateTime;
+    expirationDate!: DateTime;
+    type!: string | undefined;
+
+    constructor(data?: IDocumentListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.title = _data["title"];
+            this.code = _data["code"];
+            this.releaseDate = _data["releaseDate"] ? DateTime.fromISO(_data["releaseDate"].toString()) : <any>undefined;
+            this.organization = _data["organization"];
+            this.effectiveDate = _data["effectiveDate"] ? DateTime.fromISO(_data["effectiveDate"].toString()) : <any>undefined;
+            this.expirationDate = _data["expirationDate"] ? DateTime.fromISO(_data["expirationDate"].toString()) : <any>undefined;
+            this.type = _data["type"];
+        }
+    }
+
+    static fromJS(data: any): DocumentListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new DocumentListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["title"] = this.title;
+        data["code"] = this.code;
+        data["releaseDate"] = this.releaseDate ? this.releaseDate.toString() : <any>undefined;
+        data["organization"] = this.organization;
+        data["effectiveDate"] = this.effectiveDate ? this.effectiveDate.toString() : <any>undefined;
+        data["expirationDate"] = this.expirationDate ? this.expirationDate.toString() : <any>undefined;
+        data["type"] = this.type;
+        return data; 
+    }
+}
+
+export interface IDocumentListDto {
+    title: string | undefined;
+    code: string | undefined;
+    releaseDate: DateTime;
+    organization: string | undefined;
+    effectiveDate: DateTime;
+    expirationDate: DateTime;
+    type: string | undefined;
+}
+
 export class DynamicEntityPropertyDto implements IDynamicEntityPropertyDto {
     entityFullName!: string | undefined;
     dynamicPropertyName!: string | undefined;
@@ -21574,6 +21702,50 @@ export class ListResultDtoOfChatMessageDto implements IListResultDtoOfChatMessag
 
 export interface IListResultDtoOfChatMessageDto {
     items: ChatMessageDto[] | undefined;
+}
+
+export class ListResultDtoOfDocumentListDto implements IListResultDtoOfDocumentListDto {
+    items!: DocumentListDto[] | undefined;
+
+    constructor(data?: IListResultDtoOfDocumentListDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            if (Array.isArray(_data["items"])) {
+                this.items = [] as any;
+                for (let item of _data["items"])
+                    this.items!.push(DocumentListDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): ListResultDtoOfDocumentListDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ListResultDtoOfDocumentListDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (Array.isArray(this.items)) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IListResultDtoOfDocumentListDto {
+    items: DocumentListDto[] | undefined;
 }
 
 export class ListResultDtoOfDynamicEntityPropertyDto implements IListResultDtoOfDynamicEntityPropertyDto {

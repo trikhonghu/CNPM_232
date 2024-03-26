@@ -6,6 +6,7 @@
     <text name="Administration">Administration</text>
     <text name="Roles">Roles</text>
     <text name="Users">Users</text>
+	<text name="Documents">Documents</text>
     <text name="InvalidFormMessage">Your form is invalid. Please check and correct it.</text>
     <text name="InvalidUserNameOrPassword">Invalid user name or password</text>
     <text name="ThereIsNoTenantDefinedWithName{0}">There is no tenant defined with name {0}</text>

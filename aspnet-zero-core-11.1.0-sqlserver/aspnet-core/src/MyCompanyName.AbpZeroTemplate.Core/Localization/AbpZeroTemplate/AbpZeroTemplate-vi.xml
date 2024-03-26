@@ -6,6 +6,7 @@
     <text name="Administration">Quản trị</text>
     <text name="Roles">Vai trò</text>
     <text name="Users">Người dùng</text>
+	  <text name="Documents">Văn bản pháp lý</text>
     <text name="InvalidFormMessage">Biểu mẫu của bạn không hợp lệ. Vui lòng kiểm tra và sửa lại.</text>
     <text name="InvalidUserNameOrPassword">Sai tên truy cập hoặc mật khẩu</text>
     <text name="ThereIsNoTenantDefinedWithName{0}">Không có thuê bao được định nghĩa với tên {0}</text>
@@ -757,7 +758,7 @@
     <text name="UiCustomization_Desktop">Máy tính để bàn</text>
     <text name="TwoFactorLoginIsNotSupported">Bảo mật 2 lớp không được hỗ trợ!</text>
     <text name="LinkToCurrentPage">Liên kết đến trang hiện tại</text>
-    <text name="ThisFieldIsRequired">Điền đầy đủ thông tin</text>
+    <text name="ThisFieldIsRequired">Trường này là bắt buộc.</text>
     <text name="PleaseEnterAtLeastNCharacter">Vui lòng nhập ít nhất {0} ký tự.</text>
     <text name="PleaseEnterNoMoreThanNCharacter">Vui lòng nhập không quá {0} ký tự.</text>
     <text name="SelectTwoFactorProvider">Chọn nhà cung cấp xác thực hai yếu tố</text>

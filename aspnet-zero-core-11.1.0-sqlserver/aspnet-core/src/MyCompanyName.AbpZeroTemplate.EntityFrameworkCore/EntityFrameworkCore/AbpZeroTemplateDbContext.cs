@@ -5,6 +5,7 @@ using MyCompanyName.AbpZeroTemplate.Authorization.Delegation;
 using MyCompanyName.AbpZeroTemplate.Authorization.Roles;
 using MyCompanyName.AbpZeroTemplate.Authorization.Users;
 using MyCompanyName.AbpZeroTemplate.Chat;
+using MyCompanyName.AbpZeroTemplate.Documents;
 using MyCompanyName.AbpZeroTemplate.Editions;
 using MyCompanyName.AbpZeroTemplate.Friendships;
 using MyCompanyName.AbpZeroTemplate.MultiTenancy;
@@ -17,6 +18,7 @@ namespace MyCompanyName.AbpZeroTemplate.EntityFrameworkCore
     public class AbpZeroTemplateDbContext : AbpZeroDbContext<Tenant, Role, User, AbpZeroTemplateDbContext>, IAbpPersistedGrantDbContext
     {
         /* Define an IDbSet for each entity of the application */
+        public virtual DbSet<Document> Documents { get; set; }
 
         public virtual DbSet<BinaryObject> BinaryObjects { get; set; }
 

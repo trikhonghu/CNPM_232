@@ -25,6 +25,8 @@ using MyCompanyName.AbpZeroTemplate.Authorization.Users.Importing.Dto;
 using MyCompanyName.AbpZeroTemplate.Authorization.Users.Profile.Dto;
 using MyCompanyName.AbpZeroTemplate.Chat;
 using MyCompanyName.AbpZeroTemplate.Chat.Dto;
+using MyCompanyName.AbpZeroTemplate.Documents;
+using MyCompanyName.AbpZeroTemplate.Documents.Dto;
 using MyCompanyName.AbpZeroTemplate.DynamicEntityProperties.Dto;
 using MyCompanyName.AbpZeroTemplate.Editions;
 using MyCompanyName.AbpZeroTemplate.Editions.Dto;
@@ -164,6 +166,8 @@ namespace MyCompanyName.AbpZeroTemplate
             configuration.CreateMap<CreateUserDelegationDto, UserDelegation>();
 
             /* ADD YOUR OWN CUSTOM AUTOMAPPER MAPPINGS HERE */
+
+            configuration.CreateMap<Document, DocumentListDto>();
         }
     }
 }
